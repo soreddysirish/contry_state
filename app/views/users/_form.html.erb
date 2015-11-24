@@ -1,0 +1,21 @@
+<%= simple_form_for(@user) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :address %>
+    <%= f.label :country%>
+ <%= f.country_select :country, priority: %w(US CA), prompt: 'Please select a country' %><br />
+ <%= f.label :state %>
+   <%= render partial: 'users/subregion_select', locals: {parent_region: f.object.country} %>
+    <%= f.input :city %>
+     <%= f.input :mobile, input_html: {:maxlength => 20, :class => 'number_field', :placeholder => 'Mobile Number', :autocomplete => 'off'} %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+<script>
+  $("#user_mobile").intlTelInput({dialCodeDelimiter: "-"});
+</script>
